@@ -1,25 +1,19 @@
 import requests
+import json
+from flask import Flask, jsonify
+from config import MODE, AMADEUS_API_HOTELS, AMADEUS_API_HOTEL_LIST, AMADEUS_API_AUTH, AMADEUS_API_KEY, AMADEUS_API_SECRET, MOCK_HOTELS_FILE
 
-# Amadeus API Endpoints
-API_HOTELS = "https://test.api.amadeus.com/v2/shopping/hotel-offers"
-API_HOTEL_LIST = "https://test.api.amadeus.com/v2/reference-data/locations/hotels/by-city"
-
-API_AUTH = "https://test.api.amadeus.com/v1/security/oauth2/token"
-
-# Amadeus API Credentials
-API_KEY = ""
-API_SECRET = ""
 
 def get_access_token():
     """
         Obtain an access token from Amadeus API. 
     """
     response = requests.post(
-        API_AUTH,
+        AMADEUS_API_AUTH,
         data={
             "grant_type": "client_credentials",
-            "client_id": API_KEY,
-            "client_secret": API_SECRET,
+            "client_id": AMADEUS_API_KEY,
+            "client_secret": AMADEUS_API_SECRET,
         },
     )
     
@@ -40,7 +34,7 @@ def fetch_hotels_in_city(city_code):
     headers = {"Authorization": f"Bearer {token}"}
     params = {"cityCode": city_code}
 
-    response = requests.get(API_HOTEL_LIST, headers=headers, params=params)
+    response = requests.get(AMADEUS_API_HOTEL_LIST, headers=headers, params=params)
 
     if response.status_code != 200:
         print(f"Error fetching hotel list: {response.status_code} - {response.text}")
@@ -52,10 +46,17 @@ def fetch_hotels_in_city(city_code):
     return hotel_ids
 
 def fetch_hotels_with_discounts(city_code, check_in, check_out, adults=2):
+    
     """
-        Fetch hotel offers and filter out those with discounts.
+        Fetch hotels from real API (PRODUCTION) or return mock data (SIMULATION).
     """
+    
+    if MODE == "SIMULATION":
+        with open(MOCK_HOTELS_FILE, "r") as file:
+            return jsonify(json.load(file))
+    
     token = get_access_token()
+
     if not token:
         return []
 
@@ -74,7 +75,7 @@ def fetch_hotels_with_discounts(city_code, check_in, check_out, adults=2):
             "adults": adults
         }
 
-        response = requests.get(API_HOTELS, headers=headers, params=params)
+        response = requests.get(AMADEUS_API_HOTELS, headers=headers, params=params)
 
         if response.status_code == 200:
             for offer in response.json().get("data", []):
