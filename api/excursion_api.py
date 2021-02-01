@@ -1,18 +1,19 @@
 import json
+from flask import Flask, jsonify
+from config import MODE, MOCK_EXCURSIONS_FILE, PROD_EXCURSIONS_FILE
 
 # Path to private excursions dataset
 MOCK_EXCURSIONS_FILE = "data/mock_excursions.json"
 
-def get_excursions(city, EXCURSIONS_JSON=MOCK_EXCURSIONS_FILE):
+def get_excursions(city):
     """
-        Fetches excursions for a given city (safe for simulations).
+        Fetch excursions from private database (PRODUCTION) or mock data (SIMULATION).
     """
-    try:
-        with open(EXCURSIONS_JSON, "r") as file:
-            all_excursions = json.load(file)
-    except FileNotFoundError:
-        print(f"Error: {EXCURSIONS_JSON} not found.")
-        return []
+    
+    file_path = PROD_EXCURSIONS_FILE if MODE == "PRODUCTION" else MOCK_EXCURSIONS_FILE
+
+    with open(file_path, "r") as file:
+        return jsonify(json.load(file))
 
     return [
         {
