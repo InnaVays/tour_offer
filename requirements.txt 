@@ -1,0 +1,10 @@
+flask                   
+requests                
+pandas                  
+numpy                  
+sqlite3                 
+streamlit               
+plotly                  
+matplotlib              
+seaborn                 
+scipy                  
