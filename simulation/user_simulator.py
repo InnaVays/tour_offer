@@ -32,7 +32,7 @@ def simulate_user_activity():
         if random.random() < CONVERSION_RATES[strategy]["clicks"]:
             requests.post(EVENT_COLLECTOR_URL, json={"user_id": user_id, "session_id": session_id, "strategy": strategy, "event_type": "click", "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")})
 
-        # Simulate interest actions (email or request call)
+        # Simulate interest actions
         if random.random() < CONVERSION_RATES[strategy]["interest"]:
             event_type = random.choice(EVENTS[1:])  # Either "email" or "request_call"
             requests.post(EVENT_COLLECTOR_URL, json={"user_id": user_id, "session_id": session_id, "strategy": strategy, "event_type": event_type, "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")})
