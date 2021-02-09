@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from hotel_api import fetch_hotels_with_discounts
-from excursion_api import get_mock_excursions
+from excursion_api import get_excursions
 from model.strategy_A import generate_offer as generate_offer_A
 from model.strategy_B import generate_offer as generate_offer_B
 from model.strategy_C import generate_offer as generate_offer_C
