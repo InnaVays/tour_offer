@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 from hotel_api import fetch_hotels_with_discounts
 from excursion_api import get_mock_excursions
-from strategies.strategy_random import generate_random_offer
-from strategies.strategy_best_discount import generate_discount_offer
-from strategies.strategy_lowest_price import generate_lowest_price_offer
+from model.strategy_A import generate_offer as generate_offer_A
+from model.strategy_B import generate_offer as generate_offer_B
+from model.strategy_C import generate_offer as generate_offer_C
 
 app = Flask(__name__)
 
@@ -19,11 +19,11 @@ def get_offers():
 
     # Generate offers based on strategy
     if strategy == "A":
-        offers = generate_random_offer(city)
+        offers = generate_offer_A(city)
     elif strategy == "B":
-        offers = generate_discount_offer(city)
+        offers = generate_offer_B(city)
     elif strategy == "C":
-        offers = generate_lowest_price_offer(city)
+        offers = generate_offer_C(city)
     else:
         return jsonify({"error": "Invalid strategy"}), 400
 
