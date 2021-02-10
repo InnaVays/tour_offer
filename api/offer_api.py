@@ -20,8 +20,8 @@ def get_offers():
     # Extract parameters from request
     city = data.get("destination_city")
     strategy = data.get("strategy", "A")  # Default to random offers
-    check_in = data.get("check_in_date", "2025-06-01")
-    check_out = data.get("check_out_date", "2025-06-08")
+    check_in = data.get("check_in_date", "2021-06-01")
+    check_out = data.get("check_out_date", "2021-06-08")
     adults = data.get("adults", 2)
 
     if not city:
