@@ -4,10 +4,13 @@ from excursion_api import get_excursions
 from model.strategy_A import generate_offer as generate_offer_A
 from model.strategy_B import generate_offer as generate_offer_B
 from model.strategy_C import generate_offer as generate_offer_C
+import logging
 
 # Initialize Flask app
 app = Flask(__name__)
 
+# Setup logging
+logging.basicConfig(level=logging.INFO)
 
 @app.route('/api/get-offers', methods=['POST'])
 def get_offers():
@@ -25,9 +28,11 @@ def get_offers():
         return jsonify({"error": "Missing required parameter: destination_city"}), 400
 
     # Fetch hotels with discounts
+    logging.info(f"Fetching hotels for city: {city}")
     hotels = fetch_hotels_with_discounts(city, check_in, check_out, adults)
 
     # Fetch excursions
+    logging.info(f"Fetching excursions for city: {city}")
     excursions = get_excursions(city)
 
     # Ensure data exists
@@ -45,6 +50,7 @@ def get_offers():
         return jsonify({"error": "Invalid strategy"}), 400
 
     response = {"city": city, "strategy": strategy, "offers": offers}
+    logging.info(f"Generated {len(offers)} offers for {city} using strategy {strategy}")
 
     return jsonify(response), 200
 
