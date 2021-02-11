@@ -2,42 +2,38 @@ import random
 
 def generate_offer(hotels, excursions):
     """
-    Generates travel offers using the best discount strategy.
+    Generates a travel offer using the best discount strategy.
     
     Args:
         hotels (list): List of available hotel offers.
         excursions (list): List of available excursions.
     
     Returns:
-        list: A list of travel offers, each containing a hotel and an excursion.
+        dict: A travel offer hptel+excursion.
     """
     if not hotels or not excursions:
-        return []
+        return {}
 
-    # Sort hotels by the highest discount percentage
-    hotels_sorted = sorted(hotels, key=lambda h: h["discount"], reverse=True)[:3]
+    # Select the hotel with the highest discount
+    best_hotel = max(hotels, key=lambda h: h["discount"])
 
-    # Sort excursions by the lowest price (to complement high-discount hotels)
-    excursions_sorted = sorted(excursions, key=lambda e: e["price"])[:3]
+    # Select the most affordable excursion to complement the best-discounted hotel
+    best_excursion = min(excursions, key=lambda e: e["price"])
 
-    offers = []
-    for i in range(len(hotels_sorted)):
-        offer = {
-            "hotel": {
-                "name": hotels_sorted[i]["hotel_name"],
-                "final_price": hotels_sorted[i]["final_price"],
-                "discount": hotels_sorted[i]["discount"],
-                "currency": hotels_sorted[i]["currency"]
-            },
-            "excursion": {
-                "name": excursions_sorted[i]["name"],
-                "duration_hours": excursions_sorted[i]["duration_hours"],
-                "price": excursions_sorted[i]["price"]
-            }
+    return {
+        "hotel": {
+            "name": best_hotel["hotel_name"],
+            "final_price": best_hotel["final_price"],
+            "discount": best_hotel["discount"],
+            "currency": best_hotel["currency"]
+        },
+        "excursion": {
+            "name": best_excursion["name"],
+            "duration_hours": best_excursion["duration_hours"],
+            "price": best_excursion["price"]
         }
-        offers.append(offer)
+    }
 
-    return offers
 
 # Example Usage
 if __name__ == "__main__":
@@ -49,9 +45,9 @@ if __name__ == "__main__":
     ]
 
     mock_excursions = [
-        {"name": "Louvre Tour", "duration_hours": 3, "price": 50},
-        {"name": "Eiffel Tower VIP", "duration_hours": 2, "price": 70},
-        {"name": "Seine River Cruise", "duration_hours": 1.5, "price": 40},
+        {"name": "Exc A", "duration_hours": 3, "price": 50},
+        {"name": "Exc B", "duration_hours": 2, "price": 70},
+        {"name": "Exc C", "duration_hours": 1.5, "price": 40},
     ]
 
     print(generate_offer(mock_hotels, mock_excursions))

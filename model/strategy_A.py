@@ -2,39 +2,34 @@ import random
 
 def generate_offer(hotels, excursions):
     """
-    Generates travel offers using a random selection strategy.
+    Generates travel offer using a random selection strategy.
     
     Args:
         hotels (list): List of available hotel offers.
         excursions (list): List of available excursions.
     
     Returns:
-        list: A list of travel offers, each containing a hotel and an excursion.
+        dict: A travel offer hptel+excursion.
     """
     if not hotels or not excursions:
         return []
 
-    selected_hotels = random.sample(hotels, min(3, len(hotels)))
-    selected_excursions = random.sample(excursions, min(3, len(excursions)))
+    selected_hotel = random.sample(hotels, 1)
+    selected_excursion = random.sample(excursions, 1)
 
-    offers = []
-    for i in range(len(selected_hotels)):
-        offer = {
+    return {
             "hotel": {
-                "name": selected_hotels[i]["hotel_name"],
-                "final_price": selected_hotels[i]["final_price"],
-                "discount": selected_hotels[i]["discount"],
-                "currency": selected_hotels[i]["currency"]
+                "name": selected_hotel["hotel_name"],
+                "final_price": selected_hotel["final_price"],
+                "discount": selected_hotel["discount"],
+                "currency": selected_hotel["currency"]
             },
             "excursion": {
-                "name": selected_excursions[i]["name"],
-                "duration_hours": selected_excursions[i]["duration_hours"],
-                "price": selected_excursions[i]["price"]
+                "name": selected_excursion["name"],
+                "duration_hours": selected_excursion["duration_hours"],
+                "price": selected_excursion["price"]
             }
         }
-        offers.append(offer)
-
-    return offers
 
 # Example Usage
 if __name__ == "__main__":
@@ -46,9 +41,9 @@ if __name__ == "__main__":
     ]
 
     mock_excursions = [
-        {"name": "Louvre Tour", "duration_hours": 3, "price": 50},
-        {"name": "Eiffel Tower VIP", "duration_hours": 2, "price": 70},
-        {"name": "Seine River Cruise", "duration_hours": 1.5, "price": 40},
+        {"name": "Exc A", "duration_hours": 3, "price": 50},
+        {"name": "Exc B", "duration_hours": 2, "price": 70},
+        {"name": "Exc C", "duration_hours": 1.5, "price": 40},
     ]
 
     print(generate_offer(mock_hotels, mock_excursions))
