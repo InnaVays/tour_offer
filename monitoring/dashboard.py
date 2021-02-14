@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import sqlite3
+import plotly.express as px
 
 DB_PATH = "database/user_events.db"
 
@@ -26,3 +27,16 @@ selected_event = st.sidebar.selectbox("Filter by Event Type", ["All"] + df["even
 
 if selected_event != "All":
     df = df[df["event_type"] == selected_event]
+
+
+# Event Distribution Chart
+st.subheader("Event Distribution")
+fig_event = px.histogram(df, x="event_type", title="User Actions Distribution")
+st.plotly_chart(fig_event)
+
+# Display Data Table
+st.subheader("User Event Logs")
+st.dataframe(df)
+
+# Refresh every 30 seconds
+st.experimental_rerun()
