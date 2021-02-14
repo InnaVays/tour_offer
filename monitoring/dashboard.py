@@ -1,3 +1,4 @@
+import streamlit as st
 import pandas as pd
 import sqlite3
 
@@ -13,3 +14,15 @@ def load_data():
 
 # Load data
 df = load_data()
+
+# Calculate Metrics
+total_events = df.shape[0]
+ctr = round(df[df["event_type"] == "click"].shape[0] / total_events * 100, 2) if total_events > 0 else 0
+conversion_rate = round(df[df["event_type"] == "book"].shape[0] / total_events * 100, 2) if total_events > 0 else 0
+
+# Sidebar Filters
+st.sidebar.title("🔍 Experiment Filters")
+selected_event = st.sidebar.selectbox("Filter by Event Type", ["All"] + df["event_type"].unique().tolist())
+
+if selected_event != "All":
+    df = df[df["event_type"] == selected_event]
