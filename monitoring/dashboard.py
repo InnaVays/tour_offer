@@ -17,7 +17,7 @@ def load_data():
 df = load_data()
 
 # Sidebar Filters
-st.sidebar.title("Experiment Filters")
+st.sidebar.title("🔍 Experiment Filters")
 selected_strategy = st.sidebar.selectbox("Filter by Strategy", ["All"] + df["strategy"].unique().tolist())
 
 if selected_strategy != "All":
@@ -36,15 +36,15 @@ interest_df = df.groupby("strategy")["interest"].sum().reset_index()
 interest_df.columns = ["Strategy", "Interest"]
 
 # Display Metrics
-st.title("Travel Offer Experiment Dashboard")
+st.title("📊 Travel Offer Experiment Dashboard")
 
-st.subheader("Clicks on Offer per Strategy")
+st.subheader("🔹 Clicks on Offer per Strategy")
 fig_clicks = px.bar(clicks_df, x="Strategy", y="Clicks", title="Clicks on Offer by Strategy")
 st.plotly_chart(fig_clicks)
 
-st.subheader("Interest (Email or Call Request) per Strategy")
+st.subheader("🔹 Interest (Email or Call Request) per Strategy")
 fig_interest = px.bar(interest_df, x="Strategy", y="Interest", title="User Interest by Strategy")
 st.plotly_chart(fig_interest)
 
-st.subheader("User Event Logs")
+st.subheader("📋 User Event Logs")
 st.dataframe(df)
