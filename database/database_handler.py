@@ -12,7 +12,9 @@ def setup_database():
         CREATE TABLE IF NOT EXISTS user_events (
             user_id TEXT,
             session_id TEXT,
-            strategy TEXT
+            strategy TEXT,
+            event_type TEXT,
+            timestamp TEXT
         )
     """)
 
