@@ -18,32 +18,67 @@ METRIC_DISTRIBUTION = {
 STRATEGIES = list(METRIC_DISTRIBUTION.keys())
 EVENTS = ["click", "email", "request_call"]
 
-def simulate_user_activity(num_users=2000, simulation_speed = 1):
+def simulate_user_activity():
     """
-        Generates simulated user behavior using normal distributions.
+    Generates simulated ONE user behavior using normal distributions.
     """
-    
-    for _ in range(num_users):  
-        session_id = f"S{random.randint(1000, 9999)}"
-        user_id = f"U{random.randint(1000, 9999)}"
-        strategy = random.choice(STRATEGIES)
 
-        # Sample from normal distribution
-        clicks = max(0, int(np.random.normal(*METRIC_DISTRIBUTION[strategy]["clicks"])))  
-        interest = max(0, int(np.random.normal(*METRIC_DISTRIBUTION[strategy]["interest"])))  
-        session_length = max(1, int(np.random.normal(*METRIC_DISTRIBUTION[strategy]["session_length"])))  
+    session_id = f"S{random.randint(1000, 9999)}"
+    user_id = f"U{random.randint(1000, 9999)}"
+    strategy = random.choice(STRATEGIES)
 
-        # Send Click events
-        for _ in range(clicks):
-            requests.post(EVENT_COLLECTOR_URL, json={"user_id": user_id, "session_id": session_id, "strategy": strategy, "event_type": "click", "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")})
+    # Sample from normal distributions (ensuring non-negative values)
+    clicks = max(0, int(np.random.normal(*METRIC_DISTRIBUTION[strategy]["clicks"])))  
+    interest = max(0, int(np.random.normal(*METRIC_DISTRIBUTION[strategy]["interest"])))  
+    session_length = max(1, int(np.random.normal(*METRIC_DISTRIBUTION[strategy]["session_length"])))  
 
-        # Send Interest actions (email or request call)
-        for _ in range(interest):
-            event_type = random.choice(EVENTS[1:])  # Either "email" or "request_call"
-            requests.post(EVENT_COLLECTOR_URL, json={"user_id": user_id, "session_id": session_id, "strategy": strategy, "event_type": event_type, "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")})
+    start_time = time.time()
+    formatted_time = time.strftime("%Y-%m-%d %H:%M:%S")
 
-        # Simulate session duration
-        time.sleep( simulation_speed )  # Simulate in seconds
+    # Start Session Event
+    requests.post(EVENT_COLLECTOR_URL, json={
+        "user_id": user_id,
+        "session_id": session_id,
+        "strategy": strategy,
+        "event_type": "start_session",
+        "timestamp": formatted_time
+    })
+
+    # Simulate Click Events
+    for _ in range(clicks):
+        time.sleep(random.uniform(0.5, 2))  # Simulate delay between actions
+        requests.post(EVENT_COLLECTOR_URL, json={
+            "user_id": user_id,
+            "session_id": session_id,
+            "strategy": strategy,
+            "event_type": "click",
+            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+        })
+
+    # Simulate Interest Events (email OR request_call)
+    for _ in range(interest):
+        time.sleep(random.uniform(1, 3))  # Simulate user decision delay
+        event_type = random.choice(["email", "request_call", 'message_operator', 'book'])
+        requests.post(EVENT_COLLECTOR_URL, json={
+            "user_id": user_id,
+            "session_id": session_id,
+            "strategy": strategy,
+            "event_type": event_type,
+            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+        })
+
+    # ⏳ Simulate session length by sleeping (optional for debugging)
+    time.sleep(session_length / 1000)  
+
+    # End Session Event
+    requests.post(EVENT_COLLECTOR_URL, json={
+        "user_id": user_id,
+        "session_id": session_id,
+        "strategy": strategy,
+        "event_type": "end_session",
+        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+    })
+
 
 if __name__ == "__main__":
     simulate_user_activity()
