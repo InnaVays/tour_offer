@@ -32,7 +32,7 @@ def simulate_user_activity():
     interest = max(0, int(np.random.normal(*METRIC_DISTRIBUTION[strategy]["interest"])))  
     session_length = max(1, int(np.random.normal(*METRIC_DISTRIBUTION[strategy]["session_length"])))  
 
-    start_time = time.time()
+    #start_time = time.time()
     formatted_time = time.strftime("%Y-%m-%d %H:%M:%S")
 
     # Start Session Event
