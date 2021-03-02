@@ -2,6 +2,7 @@ import requests
 import random
 import time
 import numpy as np
+from datetime import datetime, timedelta
 from config import EVENT_COLLECTOR_URL, MODE
 
 if MODE != "SIMULATION":
@@ -20,7 +21,7 @@ EVENTS = ["click", "email", "request_call"]
 
 def simulate_user_activity():
     """
-    Generates simulated ONE user behavior using normal distributions.
+    Generates simulated ONE user behavior using normal distributions with fixed timestamps.
     """
 
     session_id = f"S{random.randint(1000, 9999)}"
@@ -32,8 +33,9 @@ def simulate_user_activity():
     interest = max(0, int(np.random.normal(*METRIC_DISTRIBUTION[strategy]["interest"])))  
     session_length = max(1, int(np.random.normal(*METRIC_DISTRIBUTION[strategy]["session_length"])))  
 
-    start_time = time.time()
-    formatted_time = time.strftime("%Y-%m-%d %H:%M:%S")
+    # Set fixed timestamps
+    start_time = datetime.now()
+    end_time = start_time + timedelta(seconds=session_length)
 
     # Start Session Event
     requests.post(EVENT_COLLECTOR_URL, json={
@@ -41,34 +43,31 @@ def simulate_user_activity():
         "session_id": session_id,
         "strategy": strategy,
         "event_type": "start_session",
-        "timestamp": formatted_time
+        "timestamp": start_time.strftime("%Y-%m-%d %H:%M:%S")
     })
 
     # Simulate Click Events
-    for _ in range(clicks):
-        time.sleep(random.uniform(0.5, 2))  # Simulate delay between actions
+    for i in range(clicks):
+        event_time = start_time + timedelta(seconds=(i + 1) * (session_length / (clicks + 1)))
         requests.post(EVENT_COLLECTOR_URL, json={
             "user_id": user_id,
             "session_id": session_id,
             "strategy": strategy,
             "event_type": "click",
-            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+            "timestamp": event_time.strftime("%Y-%m-%d %H:%M:%S")
         })
 
     # Simulate Interest Events (email OR request_call)
-    for _ in range(interest):
-        time.sleep(random.uniform(1, 3))  # Simulate user decision delay
-        event_type = random.choice(["email", "request_call", 'message_operator', 'book'])
+    for i in range(interest):
+        event_time = start_time + timedelta(seconds=(clicks + i + 1) * (session_length / (clicks + interest + 1)))
+        event_type = random.choice(["email", "request_call"])
         requests.post(EVENT_COLLECTOR_URL, json={
             "user_id": user_id,
             "session_id": session_id,
             "strategy": strategy,
             "event_type": event_type,
-            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+            "timestamp": event_time.strftime("%Y-%m-%d %H:%M:%S")
         })
-
-    # Simulate session length by sleeping (optional for debugging)
-    time.sleep(session_length / 1000)  
 
     # End Session Event
     requests.post(EVENT_COLLECTOR_URL, json={
@@ -76,7 +75,7 @@ def simulate_user_activity():
         "session_id": session_id,
         "strategy": strategy,
         "event_type": "end_session",
-        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+        "timestamp": end_time.strftime("%Y-%m-%d %H:%M:%S")
     })
 
 
