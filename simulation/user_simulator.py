@@ -17,7 +17,7 @@ METRIC_DISTRIBUTION = {
 }
 
 STRATEGIES = list(METRIC_DISTRIBUTION.keys())
-EVENTS = ["click", "email", "request_call"]
+EVENTS = ["email", "request_call", 'message_operator', 'book']
 
 def simulate_user_activity():
     """
