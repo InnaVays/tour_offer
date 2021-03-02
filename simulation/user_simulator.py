@@ -29,9 +29,9 @@ def simulate_user_activity(num_users=2000, simulation_speed = 1):
         strategy = random.choice(STRATEGIES)
 
         # Sample from normal distribution
-        clicks = max(0, int(np.random.normal(METRIC_DISTRIBUTION[strategy]["clicks"])))  
-        interest = max(0, int(np.random.normal(METRIC_DISTRIBUTION[strategy]["interest"])))  
-        session_length = max(1, int(np.random.normal(METRIC_DISTRIBUTION[strategy]["session_length"])))  
+        clicks = max(0, int(np.random.normal(*METRIC_DISTRIBUTION[strategy]["clicks"])))  
+        interest = max(0, int(np.random.normal(*METRIC_DISTRIBUTION[strategy]["interest"])))  
+        session_length = max(1, int(np.random.normal(*METRIC_DISTRIBUTION[strategy]["session_length"])))  
 
         # Send Click events
         for _ in range(clicks):
