@@ -14,10 +14,6 @@ def set_mode(mode):
                 file.write(line)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run Travel Offer Experiment")
-    parser.add_argument("--simulation", action="store_true", help="Run in simulation mode")
-    parser.add_argument("--production", action="store_true", help="Run in production mode")
-    args = parser.parse_args()
 
     if args.simulation:
         set_mode("SIMULATION")
