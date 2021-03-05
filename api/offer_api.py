@@ -1,10 +1,14 @@
 from flask import Flask, request, jsonify
-from hotel_api import fetch_hotels_with_discounts
-from excursion_api import get_excursions
+from config import MODE
+import logging
+
+from api.hotel_api import fetch_hotels_with_discounts
+from api.excursion_api import get_excursions
+
+# Import strategy models
 from model.strategy_A import generate_offer as generate_offer_A
 from model.strategy_B import generate_offer as generate_offer_B
 from model.strategy_C import generate_offer as generate_offer_C
-import logging
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -19,7 +23,7 @@ def get_offers():
 
     # Extract parameters from request
     city = data.get("destination_city")
-    strategy = data.get("strategy", "A")  # Default to random offers
+    strategy = data.get("strategy", "A")  # Default to strategy A
     check_in = data.get("check_in_date", "2021-06-01")
     check_out = data.get("check_out_date", "2021-06-08")
     adults = data.get("adults", 2)
@@ -27,12 +31,12 @@ def get_offers():
     if not city:
         return jsonify({"error": "Missing required parameter: destination_city"}), 400
 
-    # Fetch hotels with discounts
-    logging.info(f"Fetching hotels for city: {city}")
+    # Fetch hotels (Mock API in SIMULATION, Amadeus API in PRODUCTION)
+    logging.info(f"[{MODE}] Fetching hotels for city: {city}")
     hotels = fetch_hotels_with_discounts(city, check_in, check_out, adults)
 
-    # Fetch excursions
-    logging.info(f"Fetching excursions for city: {city}")
+    # Fetch excursions (Mock API in SIMULATION, Private Excursions in PRODUCTION)
+    logging.info(f"[{MODE}] Fetching excursions for city: {city}")
     excursions = get_excursions(city)
 
     # Ensure data exists
@@ -49,8 +53,8 @@ def get_offers():
     else:
         return jsonify({"error": "Invalid strategy"}), 400
 
-    response = {"city": city, "strategy": strategy, "offers": offers}
-    logging.info(f"Generated {len(offers)} offers for {city} using strategy {strategy}")
+    response = {"mode": MODE, "city": city, "strategy": strategy, "offers": offers}
+    logging.info(f"[{MODE}] Generated {len(offers)} offers for {city} using strategy {strategy}")
 
     return jsonify(response), 200
 
