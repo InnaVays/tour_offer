@@ -5,5 +5,19 @@
         "name": "Louvre",
         "duration_hours": 3,
         "price": 50
+    },
+    {
+        "excursion_id": "E002",
+        "city": "Paris",
+        "name": "Eiffel Tower",
+        "duration_hours": 2,
+        "price": 40
+    },
+    {
+        "excursion_id": "E003",
+        "city": "Paris",
+        "name": "Bake-Off",
+        "duration_hours": 4,
+        "price": 65
     }
 ]   
