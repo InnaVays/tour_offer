@@ -6,6 +6,22 @@
         "final_price": 90,
         "discount": 25,
         "currency": "EUR"
+    },
+    {
+        "hotel_id": "H002",
+        "hotel_name": "Hotel 2",
+        "base_price": 150,
+        "final_price": 110,
+        "discount": 27,
+        "currency": "EUR"
+    },
+    {
+        "hotel_id": "H003",
+        "hotel_name": "Hotel 3",
+        "base_price": 200,
+        "final_price": 160,
+        "discount": 20,
+        "currency": "EUR"
     }
 
 ]
