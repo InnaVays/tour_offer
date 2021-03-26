@@ -24,3 +24,4 @@ PROD_DATABASE_PATH = ""     # Production database
 
 # Event Collector API (Production or Simulation)
 EVENT_COLLECTOR_URL = "http://127.0.0.1:5004/api/collect-event"
+BASE_URL = "http://127.0.0.1:5003/api"
