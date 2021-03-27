@@ -1,0 +1,13 @@
+{
+    "name": "Travel Experiment",
+    "image": "mcr.microsoft.com/vscode/devcontainers/python:3.8",
+    "features": {
+        "python": "3.8"
+    },
+    "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+    },
+    "forwardPorts": [5000, 5001, 5002, 5003, 5004],
+    "postCreateCommand": "pip install -r env/requirements.txt",
+    "remoteUser": "vscode"
+}
