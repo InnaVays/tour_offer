@@ -1,0 +1,19 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore environment files
+.env
+venv/
+env/
+env/lib/
+env/bin/
+env/include/
+
+# Ignore database files
+database/*.db
+
+# Ignore runtime logs
+*.log
