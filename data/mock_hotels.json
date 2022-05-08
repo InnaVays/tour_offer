@@ -1,7 +1,7 @@
 [
     {
         "hotel_id": "H001",
-        "hotel_name": "Hotel 1",
+        "hotel_name": "The Snoring Snail Inn",
         "base_price": 120,
         "final_price": 90,
         "discount": 25,
@@ -9,7 +9,7 @@
     },
     {
         "hotel_id": "H002",
-        "hotel_name": "Hotel 2",
+        "hotel_name": "Le Chat Qui Rit Hotel",
         "base_price": 150,
         "final_price": 110,
         "discount": 27,
@@ -17,12 +17,107 @@
     },
     {
         "hotel_id": "H003",
-        "hotel_name": "Hotel 3",
+        "hotel_name": "Ooh La La Suites",
         "base_price": 200,
         "final_price": 160,
         "discount": 20,
         "currency": "EUR"
+    },
+    {
+        "hotel_id": "H004",
+        "hotel_name": "Baguette & Bed Hotel",
+        "base_price": 180,
+        "final_price": 130,
+        "discount": 28,
+        "currency": "EUR"
+    },
+    {
+        "hotel_id": "H005",
+        "hotel_name": "Croissant & Coffee Resort",
+        "base_price": 220,
+        "final_price": 180,
+        "discount": 18,
+        "currency": "EUR"
+    },
+    {
+        "hotel_id": "H006",
+        "hotel_name": "Hotel Oui Oui",
+        "base_price": 100,
+        "final_price": 80,
+        "discount": 20,
+        "currency": "EUR"
+    },
+    {
+        "hotel_id": "H007",
+        "hotel_name": "The Eiffel Snooze",
+        "base_price": 250,
+        "final_price": 200,
+        "discount": 20,
+        "currency": "EUR"
+    },
+    {
+        "hotel_id": "H008",
+        "hotel_name": "Sacrebleu Palace",
+        "base_price": 300,
+        "final_price": 220,
+        "discount": 27,
+        "currency": "EUR"
+    },
+    {
+        "hotel_id": "H009",
+        "hotel_name": "Macaron Mansion",
+        "base_price": 170,
+        "final_price": 140,
+        "discount": 18,
+        "currency": "EUR"
+    },
+    {
+        "hotel_id": "H010",
+        "hotel_name": "Champagne & Dreams Hotel",
+        "base_price": 200,
+        "final_price": 150,
+        "discount": 25,
+        "currency": "EUR"
+    },
+    {
+        "hotel_id": "H011",
+        "hotel_name": "Beret & Breakfast",
+        "base_price": 140,
+        "final_price": 100,
+        "discount": 29,
+        "currency": "EUR"
+    },
+    {
+        "hotel_id": "H012",
+        "hotel_name": "Bonjour Bonsoir Hotel",
+        "base_price": 160,
+        "final_price": 130,
+        "discount": 19,
+        "currency": "EUR"
+    },
+    {
+        "hotel_id": "H013",
+        "hotel_name": "Snooze de Paris",
+        "base_price": 180,
+        "final_price": 145,
+        "discount": 19,
+        "currency": "EUR"
+    },
+    {
+        "hotel_id": "H014",
+        "hotel_name": "Cheese & Dreams Inn",
+        "base_price": 190,
+        "final_price": 160,
+        "discount": 16,
+        "currency": "EUR"
+    },
+    {
+        "hotel_id": "H015",
+        "hotel_name": "The Mysterious Mustache Hotel",
+        "base_price": 280,
+        "final_price": 210,
+        "discount": 25,
+        "currency": "EUR"
     }
-
 ]
     

@@ -2,22 +2,71 @@
     {
         "excursion_id": "E001",
         "city": "Paris",
-        "name": "Louvre",
+        "name": "Lost in the Louvre: A Self-Guided Misadventure",
         "duration_hours": 3,
         "price": 50
     },
     {
         "excursion_id": "E002",
         "city": "Paris",
-        "name": "Eiffel Tower",
+        "name": "Secrets of the Eiffel Tower (That No One Really Knows)",
         "duration_hours": 2,
         "price": 40
     },
     {
         "excursion_id": "E003",
         "city": "Paris",
-        "name": "Bake-Off",
+        "name": "The Great Baguette Bake-Off Experience",
         "duration_hours": 4,
         "price": 65
+    },
+    {
+        "excursion_id": "E004",
+        "city": "Paris",
+        "name": "Wine & Cheese, or Just Cheese – The Ultimate Tour",
+        "duration_hours": 3,
+        "price": 55
+    },
+    {
+        "excursion_id": "E005",
+        "city": "Paris",
+        "name": "Chasing Ghosts in Notre-Dame (Night Tour)",
+        "duration_hours": 2,
+        "price": 45
+    },
+    {
+        "excursion_id": "E006",
+        "city": "Paris",
+        "name": "A Day in the Life of a Parisian Snob",
+        "duration_hours": 5,
+        "price": 80
+    },
+    {
+        "excursion_id": "E007",
+        "city": "Paris",
+        "name": "The Louvre in 10 Minutes – Speedrun Challenge",
+        "duration_hours": 1,
+        "price": 20
+    },
+    {
+        "excursion_id": "E008",
+        "city": "Paris",
+        "name": "Paris Catacombs: Spooky or Just Cool?",
+        "duration_hours": 3,
+        "price": 60
+    },
+    {
+        "excursion_id": "E009",
+        "city": "Paris",
+        "name": "Montmartre Art Walk – Pretend You Know Art!",
+        "duration_hours": 2,
+        "price": 35
+    },
+    {
+        "excursion_id": "E010",
+        "city": "Paris",
+        "name": "The Seine River Dance-Off Cruise",
+        "duration_hours": 2,
+        "price": 70
     }
-]   
+] 
